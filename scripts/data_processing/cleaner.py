@@ -294,3 +294,37 @@ def parse_dataframe(df):
                           'position': position, 'counts': count})
 
     return pd.DataFrame(result)
+
+
+def wide_upgenevsrep(df):
+    # Create a new column that numbers each occurrence of a kind for each gene
+    df['kind_num'] = df.groupby(['gene', 'kind']).cumcount() + 1
+    
+    # Pivot the dataframe
+    pivoted = df.pivot_table(
+        index='gene', 
+        columns=['kind', 'kind_num'], 
+        values='position', 
+        aggfunc='first'
+    ).fillna(0)
+    
+    # Flatten the column multi-index
+    pivoted.columns = [f'{kind}_{num}' for kind, num in pivoted.columns]
+    
+    # Now, let's add the count columns
+    counts = df.groupby(['gene', 'kind'])['counts'].sum().unstack(fill_value=0)
+    counts.columns = [f'{col}_counts' for col in counts.columns]
+    
+    # Combine the pivoted positions and counts
+    result = pd.concat([pivoted, counts], axis=1)
+    
+    # Sort the columns
+    result = result.reindex(sorted(result.columns), axis=1)
+    
+    # Fill NaN values with 0
+    result = result.fillna(0)
+    
+    # Convert all values to integers
+    result = result.astype(int)
+
+    return result
