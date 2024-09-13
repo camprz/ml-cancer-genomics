@@ -10,7 +10,7 @@ This project focuses on the identification of genetic markers associated with br
 │
 ├── data
 │ ├── raw
-│ │ └── *.csv (initial genome.ucsc.edu and favor.genohub.org data)
+│ │ └── *.csv, *.tsv, *.txt (initial genome.ucsc.edu and favor.genohub.org data)
 │ ├── processed
 │ │ └── *.csv (processed data files)
 │ ├── external
@@ -20,7 +20,7 @@ This project focuses on the identification of genetic markers associated with br
 │
 ├── models
 │ ├── trained_models
-│ │ └── *.pkl (trained model files)
+│ │ └── *.sav (trained model files)
 │ └── model_checkpoints
 │ └── *.ckpt (checkpoint files)
 │

@@ -1,3 +1,9 @@
-from .cleaner import cleaning, compare_columns, compare_and_drop_duplicates
+import pkgutil
+import importlib
 
-__all__ = ['cleaning', 'compare_columns', 'compare_and_drop_duplicates']
+__path__ = pkgutil.extend_path(__path__, __name__)
+
+# Automatically import all submodules
+for module_info in pkgutil.walk_packages(__path__, f"{__name__}."):
+    module_name = module_info.name
+    importlib.import_module(module_name)

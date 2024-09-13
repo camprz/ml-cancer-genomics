@@ -1,9 +1,9 @@
-from .feature_selection import (select_vars, 
-                                choose_variable_to_drop, 
-                                corr_comparison, 
-                                mutual_information)
+import pkgutil
+import importlib
 
-__all__ = ["select_vars", 
-           "choose_variable_to_drop", 
-           "corr_comparison", 
-           "mutual_information"]
+__path__ = pkgutil.extend_path(__path__, __name__)
+
+# Automatically import all submodules
+for module_info in pkgutil.walk_packages(__path__, f"{__name__}."):
+    module_name = module_info.name
+    importlib.import_module(module_name)
