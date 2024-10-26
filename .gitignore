@@ -3,3 +3,8 @@
 *.dat
 *.xml
 *.sav
+*.ipynb_checkpoints
+*.pyc
+__pycache__/
+data/
+.virtual_documents
